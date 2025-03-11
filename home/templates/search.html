@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% block title %}Search Results{% endblock  %}
+{% block content %}
+{% load static %}
+
+ <div class="container border-1 shadow">
+    {% if search_username %}
+    {% comment %} this for is only for profile name search  {% endcomment %}
+    {% for data in search_username %}
+
+    <div class="row mb-4">
+    <div class="col-4">
+      
+          {% if data.profile_image %}
+          <a href="#"><img src="{{data.profile_image.url}}" class="img-fluid mb-1 mt-2 shadow-lg border "
+              style="width: 60px;height: 60px;border-radius: 50%;" alt=""> </a>
+              {% else %}
+              <a href="#"><img src="{% static 'img/defaultimage.png' %}" class="img-fluid mb-1 mt-2 shadow-lg border "
+                style="width: 60px;height: 60px;border-radius: 50%;" alt=""></a>
+                {% endif %}
+        
+           <a href="{% url "profile_detail" username=data.username %}" class="text-decoration-none fw-bold text-dark mx-3 mt-3 name ">{{data.username}}</a>
+        
+    </div>
+
+      </div> <hr>
+      
+    {% endfor %}
+    
+    
+ {% elif blog_posts %}
+
+    {% for title in blog_posts %}
+    
+    <div class="card mb-4 container shadow-lg border rounded mb-5" style="max-width: 75vw;margin-bottom:10px;">
+      <div class="row">
+        <div class="col-4">
+          {% if title.user.profile_image %}
+          <a href=""><img src="{{title.user.profile_image.url}}" class="img-fluid mb-1 mt-2 shadow-lg border "
+              style="width: 60px;height: 60px;border-radius: 50%;" alt=""><br> </a>
+              {% else %}
+              <a href="#"><img src="img/defaultimage.png" class="img-fluid mb-1 mt-2 shadow-lg border"  style="width: 60px; height: 60px; border-radius: 50%;"><br>
+              
+                {% endif %}
+          <div class="row ">
+            <a href="#" class="text-decoration-none fw-bold text-dark  name ">{{title.user.username}}</a>
+            <p><small class="text-body-secondary">{{title.created_at}}</small></p>
+          </div>
+        </div> 
+
+      </div>
+      <div class="row ">
+        {% if title.blog_images %}
+        <div class="col-md-4 ">
+          <img src="{{title.blog_images.url}}" class="img-fluid rounded-start" alt="..." style="width:300px;height:200px" >
+        </div>
+        {% endif %}
+        <div class="col-md-8 mb-5">
+          <div class="card-body">
+            <a href="{% url "post_detail" post_id=title.id %}"><h5 class="card-title text-black">{{title.blog_title | truncatechars:50}}</h5></a>
+            <p class="card-text">{{title.blog_content | truncatechars:150|safe}}</p>
+            <p class="card-text"><small class="text-body-secondary">{{title.updated_at}}</small></p>
+          </div>
+        </div>
+      </div>
+    </div>
+      {% endfor %}
+      {% else %}
+    <p class="text-center text-light mt-5 mb-5 bg-secondary ">No search results found</p>
+    {% endif %}
+ </div>
+
+{% endblock %}

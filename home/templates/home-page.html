@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}
+home
+{% endblock %}
+{% block content %}
+{% load static %}
+
+
+<div class="container-fluid m-0 p-0  home-container">
+    <img class="img-fluid w-100" src="static/img/bg-best.jpg" style="height: 80vh;width: 100vw;" alt="">
+    <div class=" container-text ">
+      <h2 class="mt-5 text-white mx-3  ">Whispered Wisdom "Dive Deep"</h2>
+      <p class="col-md-5 mx-4 text-white">Embark on a journey through the realms of thought with Whispered
+        Wisdom.
+        Explore captivating narratives, insightful musings, and thought-provoking perspectives.
+        Immerse yourself in a world where words weave magic and ideas flourish.
+        Join us as we delve into the depths of knowledge and uncover the essence of wisdom.</p>
+    </div>
+  </div>
+  <div class="container text-center mt-4 ">
+    <p class="mt-5 mb-4 col-md-10 text-black-50 ">Welcome to Shahzaib parwana bloging plateform, your haven for
+      simplicity and joy. Explore the art of bloging with our diverse content, featuring news, fashion trends, the
+      sports, and inspiring home decor ideas. Join us on this vibrant journey where every post is crafted to add a touch
+      of joy and inspiration to your daily life</p>
+  </div>
+  <h1 class="text-center mt-5 mb-4 ">Stay conect with our Top Blogs</h1>
+  <div class="container ">
+    <div class="row text-center align-content-center justify-content-center ">
+    <div class="card col-md-3 mx-md-4 shadow-lg " >
+      <img src="static/img/blog-news.jpeg" class="card-img-top img-fluid " alt="..."style="height: 40%;width: 100%;">
+      <div class="card-body">
+        <h5 class="card-title">News</h5>
+        <p class="card-text ">Stay Updated: Dive into Our News Blog! 📰
+
+          Our news blog is your one-stop destination for the latest updates, breaking news, and insightful analysis...</p>
+      </div>
+
+      <div class="card-body text-center  ">
+        <a href="{% url 'blog_category' %}?category=news" class=" btn card-link border text-white fw-medium  border-dark  p-3 rounded-0 btn-card "
+          style="background-color: #68292f">See more -> </a>
+
+      </div>
+    </div>
+
+
+    <div class="card col-md-3 mx-md-4 shadow-lg ">
+      <img src="static/img/blog-sports.jpeg" class="card-img-top img-fluid " alt="..." style="height: 40%;width: 100%;">
+      <div class="card-body">
+        <h5 class="card-title">Sports</h5>
+        <p class="card-text ">Welcome to Shah blogs, Whether you're a die-hard fan, a observer, or just someone looking to 
+          stay updated on the latest sports news...</p>
+      </div>
+
+      <div class="card-body text-center  ">
+        <a href="{% url 'blog_category' %}?category=sports" class=" btn card-link border text-white fw-medium  border-dark  p-3 rounded-0 btn-card "
+          style="background-color: #68292f">See more -></a>
+
+      </div>
+    </div>
+
+
+    <div class="card col-md-3 mx-md-4 shadow-lg " >
+      <img src="static/img/blog-fashion.png" class="card-img-top img-fluid " alt="..." style="height: 40%;width: 100%;">
+      <div class="card-body">
+        <h5 class="card-title">Fashion</h5>
+        <p class="card-text ">Welcome to Fashion blog, your go-to destination for all things fashion! Step into a world where style meets substance, where trends are dissected....</p>
+      </div>
+
+      <div class="card-body text-center  ">
+        <a href="{% url 'blog_category' %}?category=fashion" class=" btn card-link border text-white fw-medium  border-dark  p-3 rounded-0 btn-card "
+          style="background-color: #68292f">See more -></a>
+
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+
+{% endblock %}

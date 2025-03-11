@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% block title %}
+create your blog
+{% endblock  %}
+{% block content %}
+{% load static %}
+
+<section class="container-fluid vedio-container">
+    <div class="video-container">
+      <!-- Replace video_src with your video file path -->
+      <video autoplay loop muted>
+        <source src="{% static '/video/blogvideo.mp4' %}" type="video/mp4">
+        Your browser does not support the video.
+      </video>
+    </div>
+    <div class="content">
+      <h1 class=" text-center " style='font-family: "Titan One", sans-serif;'> Unleash Your Voice, Share Your Story</h1>
+      <h3 class=" text-center " style='font-family: "Titan One", sans-serif;'> Make your own blog</h3>
+      <p class="text-center fw-medium " style="color: white;">Find your intrest and start bloging Frombest bloging
+        plateform</p>
+      <div class="text-center ">
+        <a href="{% url "post_admin" %}" name="start_bloging" class=" btn px-md-4 py-md-2   mb-5  custom-button">Start Bolging</a><br>
+
+
+      </div>
+    </div>
+    <hr>
+    <div class="container ">
+      <div class="row d-flex justify-content-center align-items-center">
+        <h1 class="text-center text-secondary  " style='font-family: "Titan One", sans-serif;'>Start Bloging now </h1>
+        <div class="col-12 mt-5  text-center  ">
+          <img src="{% static '/img/blogging-image.jpg' %}" class=" img-fluid border rounded-3 " style="height: 60vh;width: 50vw;"
+            alt="">
+        </div>
+      </div>
+      <div class="row mt-4">
+        <div class="col-2"></div>
+        <div class="col-8 ">
+          <h2 class="text-center fw-medium text-secondary ">Why should do bloging Bloging?</h2>
+          <p class="blog-text text-justify">Starting a blog can be a rewarding endeavor for several reasons. Here's a detailed
+            breakdown of why you
+            might want to start blogging: <br>
+
+            <span class="fw-bold "> Share your knowledge and expertise:</span> <br>Blogging provides a platform to share
+            your knowledge, skills, and
+            expertise on topics you're passionate about. Whether you're an expert in a particular field or have valuable
+            insights to offer, a blog allows you to share your thoughts and ideas with a global audience. <br>
+
+            <span class="fw-bold ">Build a personal brand:</span><br> Blogging can help you establish yourself as an
+            authority in your niche and build a
+            personal brand. Consistently creating high-quality content demonstrates your expertise and can attract
+            followers, subscribers, and potential clients or employers. <br>
+
+            <span class="fw-bold ">Connect with like-minded individuals:</span><br> Blogging allows you to connect with
+            people who share similar interests
+            and passions. By creating valuable content and engaging with your audience through comments and social
+            media, you can build a community of like-minded individuals who appreciate your work. <br>
+
+            <span class="fw-bold ">Improve your writing skills:</span><br> Blogging is an excellent way to hone your writing
+            skills and express yourself
+            creatively. Whether you're writing informative articles, personal essays, or how-to guides, blogging gives
+            you the opportunity to practice writing regularly and receive feedback from your <br>
+
+            <span class="fw-bold ">Generate passive income: </span> <br>not guaranteed, blogging has the potential to
+            generate passive income through
+            various monetization strategies such as affiliate marketing, sponsored content, advertising, and selling
+            digital products or services. With dedication and persistence, you can turn your blog into a source of
+            passive income. <br>
+
+            <span class="fw-bold ">Document your journey:</span><br> Whether you're embarking on a new hobby, starting a
+            business, or pursuing a passion
+            project, blogging allows you to document your journey and share your progress with others. Over time, your
+            blog can serve as a valuable archive of your experiences, accomplishments, and lessons learned. <br>
+
+            <span class="fw-bold ">Expand your network: </span> <br>Blogging can open doors to new opportunities and
+            collaborations. As you grow your
+            audience and establish yourself as a trusted voice in your niche, you may receive invitations to speak at
+            events, participate in interviews, or collaborate with other bloggers, influencers, and brands.
+
+            <span class="fw-bold ">Express yourself creatively:</span><br> Blogging is a creative outlet that allows you to
+            express yourself in unique and
+            meaningful ways. Whether you're writing, designing, or creating multimedia content, blogging empowers you to
+            unleash your creativity and share your perspective with the world. <br>
+
+            Overall, starting a blog offers numerous benefits, from sharing your knowledge and building a personal brand
+            to connecting with others and generating passive income. Whether you're blogging for personal fulfillment,
+            professional development, or business growth, the journey can be both rewarding and fulfilling.
+
+          </p>
+          <div class="col-2"></div>
+
+          <div class="d-flex  align-items-center justify-content-center "><a href="{% url "post_admin" %}"
+            class="btn btn bg-danger text-center text-white fw-medium mb-5 ">Start Bloging</a></div>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+
+{% endblock %}

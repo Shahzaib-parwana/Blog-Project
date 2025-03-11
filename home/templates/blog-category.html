@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<div class="container-fluid  m-0 p-0 blog-container ">
+  <img src="{% static '/img/blog-section.jpg' %}" class="img-fluid " style="height: 60vh;width: 100vw;" alt="">
+  <div class="blog-container-text ">
+    <h1 class="blog-heading fw-bolder ">Explore Our Blog for <br> Knowledge and Inspiration</h1>
+    <p class="blog-heading">Empower yourself with knowledge and inspiration from our blog! Whether you're seeking
+      personal growth tips or industry insights, our curated content is here to fuel your mind and spark creativity.
+    </p>
+  </div>
+</div>
+<h1 class="text-center blog-heading mt-5 mb-4 ">Visit Our Blogs</h1>
+<div class="container background">
+  <ul class="nav nav-pills  justify-content-center" id="pills-tab" role="tablist">
+    <li class="nav-item mx-md-4 blog-tab p-sm-3 fw-bold text-center shadow-sm " style="width: 25%;" role="presentation">
+      <button class="nav-link mx-auto {% if active_pill == 'news' %}active{% endif %} " id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+        type="button" role="tab" aria-controls="pills-home" aria-selected="true">News blog</button>
+    </li>
+    <li class="nav-item mx-md-4 blog-tab p-sm-3 fw-bold text-center  shadow-sm " style="width: 25%;"
+      role="presentation">
+      <button class="nav-link mx-auto {% if active_pill == 'sports' %}active{% endif %}" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
+        type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Sports Blog</button>
+    </li>
+    <li class="nav-item mx-md-4 blog-tab p-sm-3 fw-bold text-center  shadow-sm " style="width: 25%;"
+      role="presentation">
+      <button class="nav-link mx-auto {% if active_pill == 'fashion' %}active{% endif %} " id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact"
+        type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Fashion Blog</button>
+    </li>
+  </ul>
+
+</div>
+
+<div class="tab-content" id="pills-tabContent">
+  <div class="tab-pane fade show {% if active_pill == 'news' %}show active{% endif %} " id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+    <section class="container shadow-lg " style="background: linear-gradient(to bottom, rgba(255, 192, 203, 0.5), #ffffff);width: 100vw;box-shadow: 0 3px 6px rgba(134, 144, 162, 0.562);">
+
+      <div class="container mt-4 pt-4  ">
+        <h1 class="mb-3 text-center fw-bolder blog-heading">Stay inform about nation</h1>
+
+      <!-- ```````````````````````````````````````````news card 2`````````````````````````````````````````` -->
+       {% if news_posts %}
+       {% for post in news_posts %}
+      <div class="card mb-4 container shadow-lg border rounded-0 " style="max-width: 75vw;">
+        <div class="row">
+          <div class="col-4">
+            {% if post.user.profile_image %}
+            <a href="#"><img src=" {{post.user.profile_image.url}} " class="img-fluid mb-1 mt-2 shadow-lg border "
+                style="width: 60px;height: 60px;border-radius: 50%;" alt=""><br> </a>
+                {% else %}
+                <a href="#"><img src="{% static 'img/defaultimage.png' %}" class="img-fluid mb-1 mt-2 shadow-lg border "
+                  style="width: 60px;height: 60px;border-radius: 50%;" alt=""><br> </a>
+                  {% endif %}
+            <div class="row ">
+              <a href="#" class="text-decoration-none fw-bold text-dark  name ">{{post.user.username}}</a>
+              <p><small class="text-body-secondary">{{post.created_at}}</small></p>
+            </div>
+          </div>
+
+        </div>
+        <div class="row ">
+          {% if post.blog_images %}
+          <div class="col-md-4 ">
+            <img src="{{post.blog_images.url}}" class="img-fluid rounded" alt="..." style="width:300px;height:200px" >
+          </div>
+          {% endif %}
+          <div class="col-md-8">
+            <div class="card-body">
+              <a href="{% url "post_detail" post_id=post.id  %}"><h5 class="card-title text-black">{{post.blog_title | truncatechars:50}}</h5></a>
+              <p class="card-text ">{{post.blog_content | truncatechars:150|safe}}</p>
+              <p class="card-text"><small class="text-body-secondary">{{datas.updated_at}}</small></p>
+            </div>
+          </div>
+        </div>
+      </div>
+       {% endfor %}
+       {% else %}
+       <p class="text-center text-info mt-3 mb-3">No news posts available</p>
+       {% endif %}
+
+      </div>
+    </section>
+  </div>
+
+  <!-- ``````````````````````````````````````````````````````````````````````````````````````````````````````` -->
+  <div class="tab-pane fade mb-4 {% if active_pill == 'sports' %}show active{% endif %}" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+    <section class="container shadow-lg "
+      style="background: linear-gradient(to bottom, rgba(255, 192, 203, 0.5), #ffffff);width: 100vw;box-shadow: 0 3px 6px rgba(134, 144, 162, 0.562);">
+
+      <div class="container mt-4 pt-4  ">
+        <h1 class="mb-3 text-center fw-bolder blog-heading">Your Daily Dose of Thrilling Sports News</h1>
+
+
+        <!-- `````````````````````````````````````sports card 1````````````````````````````````````````````````` -->
+         {% if sports_posts %}
+        {% for post in sports_posts %}
+        <div class="card mb-4 container shadow-lg border rounded " style="max-width: 75vw;">
+          <div class="row">
+            <div class="col-4">
+              {% if post.user.profile_image %}
+              <a href="#"><img src="{{post.user.profile_image.url}}" class="img-fluid mb-1 mt-2 shadow-lg border "
+                  style="width: 60px;height: 60px;border-radius: 50%;" alt=""><br> </a>
+                  {% else %}
+                  <a href="#"><img src="{% static 'img/defaultimage.png' %}" class="img-fluid mb-1 mt-2 shadow-lg border "
+                    style="width: 60px;height: 60px;border-radius: 50%;" alt=""><br> </a>
+                    {% endif %}
+              <div class="row ">
+                <a href="#" class="text-decoration-none fw-bold text-dark  name ">{{post.user.username}}</a>
+                <p><small class="text-body-secondary">{{post.created_at}}</small></p>
+              </div>
+            </div>
+
+          </div>
+          <div class="row ">
+            {% if post.blog_images %}
+            <div class="col-md-4 ">
+              <img src="{{post.blog_images.url}}" class="img-fluid rounded-start" alt="..." style="width:300px;height:200px" >
+            </div>
+            {% endif %}
+            <div class="col-md-8">
+              <div class="card-body">
+                <a href="{% url "post_detail" post_id=post.id  %}"><h5 class="card-title text-black">{{post.blog_title | truncatechars:50}}</h5></a>
+                <p class="card-text">{{post.blog_content | truncatechars:150|safe}}</p>
+                <p class="card-text"><small class="text-body-secondary">{{post.updated_at}}</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+         {% endfor %}
+         {% else %}
+      <p class="text-center text-info mt-3 mb-3">No Sports posts available</p>
+      {% endif %}
+      <!-- ``````````````````````````````````````````` sports card 2`````````````````````````````````````````` -->
+      
+
+    </div>
+
+    </section>
+
+  </div>
+
+
+  <!-- ````````````````````````````````````````````````````````````````````````````````````````````````````` -->
+  <div class="tab-pane fade {% if active_pill == 'fashion' %}show active{% endif %}" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab" tabindex="0">
+    <section class="container shadow-lg "
+      style="background: linear-gradient(to bottom, rgba(255, 192, 203, 0.5), #ffffff);width: 100vw;box-shadow: 0 3px 6px rgba(134, 144, 162, 0.562);">
+
+      <div class="container mt-4 pt-4  ">
+        <h1 class="mb-3 text-center fw-bolder blog-heading">Stay Vogue with the Latest Fashion News!</h1>
+
+
+        <!-- `````````````````````````````````````Fashion card 1````````````````````````````````````````````````` -->
+         {% if fashion_posts %}
+        {% for post in fashion_posts %}
+        <div class="card mb-4 container shadow-lg border rounded mb-5" style="max-width: 75vw;margin-bottom:10px;">
+          <div class="row">
+            <div class="col-4">
+              {% if post.user.profile_image %}
+              <a href="#"><img src="{{post.user.profile_image.url}}" class="img-fluid mb-1 mt-2 shadow-lg border "
+                  style="width: 60px;height: 60px;border-radius: 50%;" alt=""><br> </a>
+                  {% else %}
+                  <a href="#"><img src="img/defaultimage.png" class="img-fluid mb-1 mt-2 shadow-lg border"  style="width: 60px; height: 60px; border-radius: 50%;"><br>
+                  
+                    {% endif %}
+              <div class="row ">
+                <a href="#" class="text-decoration-none fw-bold text-dark  name ">{{post.user.username}}</a>
+                <p><small class="text-body-secondary">{{post.created_at}}</small></p>
+              </div>
+            </div> 
+
+          </div>
+          <div class="row ">
+            {% if post.blog_images %}
+            <div class="col-md-4 ">
+              <img src="{{post.blog_images.url}}" class="img-fluid rounded-start" alt="..." style="width:300px;height:200px" >
+            </div>
+            {% endif %}
+            <div class="col-md-8 mb-5">
+              <div class="card-body">
+                <a href="{% url "post_detail" post_id=post.id  %}"><h5 class="card-title text-black">{{post.blog_title | truncatechars:50}}</h5></a>
+                <p class="card-text">{{post.blog_content | truncatechars:150|safe}}</p>
+                <p class="card-text"><small class="text-body-secondary">{{post.updated_at}}</small></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+      {% endfor %}
+      {% else %}
+      <p class="text-center text-info mt-3 mb-3">No Fashaion posts available...</p>
+      {% endif %}
+      <!-- ```````````````````````````````````````````fashion card 2`````````````````````````````````````````` -->
+     
+    </div>
+    </section>
+  </div>
+
+</div>
+
+{% endblock %}

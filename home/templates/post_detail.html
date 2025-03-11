@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+ {% block title %}
+ post detail
+ {% endblock %}
+{% block content %}
+{% load static %}
+<div class="container mt-4 border shadow" style="width:70%;">
+    <div class="card mb-3 border-0">
+        <h4 class="card-title mb-3 mt-3 mx-3">{{detail.blog_title}}</h5>
+        <p class="card-text mx-3"><small class="text-body-secondary">{{detail.created_at}}</small></p>
+        {% if detail.blog_images %}
+        <div class=" m-auto  ">
+           <img src="{{detail.blog_images.url}}" class="card-img-top img-fluid" style="height:500px;width:600px;" alt="...">
+        </div>
+        {% endif %}
+        <div class="card-body">
+            <p class="card-text">{{detail.blog_content|safe}}</p>
+        </div>
+        <div class="row">
+            <div class="col-10 text-end">
+                <!-- Like and Dislike Buttons (no form, we use AJAX) -->
+                <button class="btn like" id="like-btn" data-post="{{ detail.id }}">
+                    <i class="bi bi-hand-thumbs-up"></i><br>
+                    <small>Like (<span id="like-count">{{ detail.total_likes }}</span>)</small>
+                </button>
+                <button class="btn dislike" id="dislike-btn" data-post="{{ detail.id }}">
+                    <i class="bi bi-hand-thumbs-down"></i><br>
+                    <small>Dislike (<span id="dislike-count">{{ detail.total_dislikes }}</span>)</small>
+                </button>
+                <!-- Share Button -->
+                <button class="btn share-btn" id="share-btn">
+                    <i class="bi bi-share"></i><br>
+                    <small>Share</small>
+                </button>
+            </div>
+        </div>
+        <div class="comment-section mt-4">
+            <h3>Comments</h3>
+            <!-- Comment Form -->
+            <form id="comment-form" method="post">
+                {% csrf_token %}
+                {% if user.profile_image %}
+                <img src="{{user.profile_image.url}}" alt="User Profile" class="user-img">
+                {% else %}
+                <img src="{% static 'img/defaultimage.png' %}" alt="User Profile" class="user-img">
+                {% endif %}
+                <textarea id="comment-input" name="comment" placeholder="Write a comment..."></textarea>
+
+                <button type="submit">Post</button>
+            </form>
+            <!-- Comments List -->
+            <div id="comments-container">
+                {% for comment in detail.comment_set.all %}
+                <div class="comment">
+                    {% if user.profile_image %}
+                    <img src="{{comment.user.profile_image.url}}" alt="User Profile" class="user-img">
+                    {% else %}
+                    <img src="{% static 'img/defaultimage.png' %}" alt="User Profile" class="user-img">
+                    {% endif %}
+                    <div class="comment-content">
+                        <h4>{{ comment.user.username }} <span class="timestamp">{{ comment.created_at|date:"M d, Y H:i" }}</span></h4>
+                        <p>{{ comment.comment }}</p>
+                    </div>
+                </div>
+
+                {% empty %}
+                <p>No comments yet. Be the first to comment!</p>
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </div>
+   
+</div>
+
+
+{% endblock %}

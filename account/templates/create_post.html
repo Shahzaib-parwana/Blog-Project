@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<div class="container ">
+    <div class="row align-items-center justify-content-center ">
+        <div class="col-md-7">
+            <form class="p-5 card shadow-lg " method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="text-center ">
+                    {% if user.profile_image %}
+                    <img src="{{user.profile_image.url}}" class="text-center "
+                        style="height: 150px;width: 150px;border-radius: 50%;" alt="">
+                        {% else %}
+                        <img src="{% static 'img/defaultimage.png' %}" class="text-center "
+                        style="height: 150px;width: 150px;border-radius: 50%;" alt="">
+                        {% endif %}
+                    <h5>{{user.username}}</h5>
+                </div>
+                
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Title</label>
+                    <input type="text" class='form-control' name='title'>
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Content</label>
+                    <textarea name="contant" class='form-control' id="blog-content" ></textarea>
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Uplode Thumbnil</label>
+                   <input type="file" name='thumbnil' class='form-control' >
+
+                </div>
+
+                <div class="mb-3">
+
+                    <div class="dropdown-center">
+                        <label for="">Category</label>
+                        <select id="Type" name="category" class='form-control' >
+                            {% for category in categories %}
+                            <option value='{{category.id}}'>{{category.category_name}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+               
+                
+                <button type="submit" class="btn btn-primary">Post</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    tinymce.init({
+        selector: '#blog-content',
+        menubar: false,  // Adjust this and other settings as needed
+        plugins: 'link image code',  // Add any plugins you need
+        toolbar: 'undo redo | formatselect | bold italic | alignleft aligncenter alignright | code',
+      });
+      
+</script>
+
+{% endblock %}

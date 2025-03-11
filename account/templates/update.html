@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% load static %}
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+<div class="container ">
+    <div class="row align-items-center justify-content-center ">
+        <div class="col-md-7">
+            <form class="p-5 card shadow-lg " method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="text-center ">
+                    {% if user.profile_image %}
+                    <img src="{{user.profile_image.url}}" class="text-center "
+                        style="height: 150px;width: 150px;border-radius: 50%;" alt="">
+                        {% else %}
+                        <img src="{% static 'img/defaultimage' %}" class="text-center "
+                        style="height: 150px;width: 150px;border-radius: 50%;" alt="">
+                        {% endif %}
+                    <h5>{{user.username}}</h5>
+                </div>
+                
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Title</label>
+                    <input type="text" class='form-control' name='title' value="{{post_instance.blog_title}}">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Content</label>
+                    <textarea class='form-control' id="blog-content" name="contant" style="height:200px;" >{{ post_instance.blog_content|safe }}</textarea>
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Uploded Thumbnil</label>
+                    {% if post_instance.blog_images %}
+                     <img src="{{ post_instance.blog_images.url }}" class="rounded-2 border-1" style="max-height: 100px;" alt="Current Image">
+                    {% endif %}
+                   <input type="file" class='form-control' name='thumbnil'>
+
+                </div>
+
+                <div class="mb-3">
+
+                    <div class="dropdown-center">
+                        <label for="">Category</label>
+                        <select id="Type" class="form-control" name="category">
+                            {% for category in categories %}
+                                <option value="{{ category.id }}" {% if category == post_instance.category %}selected{% endif %}>
+                                    {{ category.category_name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+               
+                
+                <button type="submit" class="btn btn-primary">Update Post</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+  tinymce.init({
+    selector: '#blog-content'
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block title %}
+Login
+{% endblock %}
+{% block content %}
+<div style=" background-color: #f8f9fa;">
+    <div class="container">
+        {% if messages %}
+        <div id="message-box">
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        <div class="row justify-content-center login-container" style="margin-top: 5%;">
+            <div class="col-md-6  col-lg-5">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="text-center mt-4  ">Login</h4>
+                    </div>
+                     <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="username">Email</label>
+                                <input type="text" class="form-control mb-3 p-2 " id="username" name="email"
+                                    placeholder="Enter your email">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control p-2  mb-3 " id="password" name="password"
+                                    placeholder="Enter your password">
+                            </div>
+                            
+                            <div class="text-center mt-4">
+                                <p>Not Account <a href="{% url "sign_up" %}">Sign UP</a></p>
+                                <a href="{% url "forgot-password" %}">Forgot Password</a>
+                                <button type="submit" class="btn btn-secondary  btn-block form-control ">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

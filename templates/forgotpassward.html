@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Forget passwaord{% endblock %}
+{% block content %}
+<div class="passward-container">
+    <div class="card forgot-password-card p-4 w-100" style="max-width: 400px;">
+        <h2 class="text-center mb-4">Forgot Password</h2>
+        <p class="text-center text-muted mb-4">Enter your email address, and we’ll send you a link to reset your password.</p>
+        {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <center><p style="color: firebrick;">{{message}}</p></center>
+            {% else %}
+                <center><p style="color: dodgerblue;">{{message}}</p></center>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required>
+            </div>
+            <button type="submit" class="btn btn-proceed w-100">Proceed</button>
+        </form>
+        <div class="text-center mt-3">
+            <a href="{% url "login" %}" class="text-decoration-none">Back to Login</a><br>
+            <a href="{% url "sign_up" %}" class="text-decoration-none">Back to Sign up</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

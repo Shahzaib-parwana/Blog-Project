@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block content %}
+
+<div class="text-center ">
+    {% if messages %}
+        <div id="message-box">
+        {% for message in messages %}
+        <div class="alert alert-success" role="alert">
+            {{message}}
+          </div>
+        {% endfor %}
+        </div>
+    {% endif %}
+
+    {% if user.profile_image %}
+        <img src="{{user.profile_image.url}}" class="text-center "
+        style="height: 150px;width: 150px;border-radius: 50%;" alt=""> 
+        {% else %}
+        <img src="{% static 'img/defaultimage.png' %}" class="text-center "
+        style="height: 150px;width: 150px;border-radius: 50%;" alt=""> 
+        {% endif %}
+        <br><h3 class="mt-1 mb-3  text-center ">{{user.username}}</h3><br>
+        <a href="{% url "create_post" %}" class="btn text-white fw-medium mb-4 " style="background-color: #4e1f1f;">Add New Post </a>
+
+</div>
+<div class="card mb-4 container shadow-lg border rounded-0 " style="max-width: 75vw;">
+{% if user_posts %}
+   {% for posts in user_posts %}
+   <div class="row">
+    <div class="col-4">
+        {% if user.profile_image %}
+        <a href="#"><img src="{{posts.user.profile_image.url}}" class="img-fluid mb-1 mt-2 shadow-lg border "
+                style="width: 60px;height: 60px;border-radius: 50%;" alt=""><br> </a>
+                {% else %}
+                <a href="#"><img src="{% static 'img/defaultimage.png' %}" class="img-fluid mb-1 mt-2 shadow-lg border "
+                    style="width: 60px;height: 60px;border-radius: 50%;" alt=""><br> </a>
+                {% endif %}
+        <div class="row ">
+            <a class="text-decoration-none fw-bold text-dark  name ">{{posts.user.username}}</a>
+            <p><small class="text-body-secondary">{{posts.created_at}}</small></p>
+        </div>
+    </div>
+
+</div>
+
+<div class="row ">
+    {% if posts.blog_images %}
+    <div class="col-md-4 ">
+        <img src="{{posts.blog_images.url}}" class="img-fluid rounded-start" alt="..." style="width:300px;height:200px;">
+    </div>
+    {% endif %}
+    <div class="col-md-8 mb-4 ">
+        <div class="card-body">
+            <a href="{% url "post_admin_detail" post_id=posts.id %}" class="text-secondary ">
+                <h5 class="card-title">{{posts.blog_title | truncatechars:100}}</h5></a>
+                <p class="card-text">{{posts.blog_content | truncatechars:150|safe}}</p>
+                <p class="card-text"><small class="text-body-secondary">{{posts.updated_at}}</small>
+                </p>
+            
+        </div>
+        {% include "delete.html" %}
+        <a href="{% url "edit_post" post_id=posts.id %}"  class="btn text-white fw-medium " style="background-color: #4e1f1f;">Update Post</a>
+        <button class="delete-btn btn text-white fw-medium" data-id="{{ posts.id }}" style="background-color: #4e1f1f;">
+    Delete Post
+</button>
+
+    </div>
+</div> <hr style=" border: none; 
+    height: 4px; 
+    background: linear-gradient(to right, #007bff, #6c757d); 
+    margin: 20px 0; 
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); 
+    border-radius: 5px; ">
+   {% endfor %}
+   {% else %}
+   <h4 class="text-center text-bg-success" >You cannot do any posts yet.. </h4>
+   {% endif %}
+
+</div>
+</div>
+{% endblock %}

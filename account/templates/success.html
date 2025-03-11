@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Successfull submitted{% endblock %}
+{% block content %}
+{% load static %}
+<div class="body">
+    <div class="success-page">
+        <div class="success-box">
+            <div class="close-btn" onclick="goToContactPage()">✖</div>
+            <div class="circle-icon">
+                <div class="tick-mark">✔</div>
+            </div>
+            <h2 id="h2">Email Sent Successfully!</h2>
+            <p id="p">Thank you for reaching out to us. We have received your message and will get back to you shortly.</p>
+            <button onclick="goToHomePage()" style="background:red;">Back to Home</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}
